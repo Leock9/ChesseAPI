@@ -1,0 +1,14 @@
+# Ignorar arquivos gerados automaticamente
+bin/
+obj/
+Debug/
+Release/
+
+# Ignorar arquivos de dependências e pacotes
+packages/
+node_modules/
+
+# Ignorar arquivos de build
+*.user
+*.vs
+*.suo

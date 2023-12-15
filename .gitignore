@@ -1,0 +1,12 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/fiap-tech-challenge/FileContentIndex
+/.vs/fiap-tech-challenge/FileContentIndex/2361a3dd-59b8-4b4d-8413-1f51f4ff056f.vsidx
+/.vs/fiap-tech-challenge/v17
+/.vs/fiap-tech-challenge/v17/.wsuo
+/.vs/slnx.sqlite
+/.vs/VSWorkspaceState.json
+/FiapTechChallenge/Api/Properties
+/FiapTechChallenge/FiapTechChalleng/Properties
