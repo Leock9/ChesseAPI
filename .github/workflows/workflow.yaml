@@ -1,0 +1,38 @@
+name: .NET 8 Build and Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '8.0'
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build --no-restore
+
+    - name: Run tests
+      run: dotnet test --no-build
+
+# Gatilho: Executa em commits push e pull requests para a branch main.
+# Job: Define um job chamado build-and-test.
+# Runner: Usa a última versão do Windows como ambiente de execução.
+# Passos:
+# Checkout: Faz checkout do código do seu repositório.
+# Setup .NET: Configura a versão especificada do .NET (neste caso, a última versão do .NET 8).
+# Restore dependencies: Restaura as dependências do projeto .NET.
+# Build: Compila o projeto sem restaurar as dependências (já feito anteriormente).
+# Run tests: Executa os testes de unidade sem recompilar o projeto.

@@ -15,11 +15,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Driver", "Driver", "{2D1D9A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Driven", "Driven", "{28CDA60B-5287-4692-A891-C01D4B635AD3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{C5416B3C-A7CB-466B-9D85-27F74A16D2C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "Api\Api.csproj", "{C5416B3C-A7CB-466B-9D85-27F74A16D2C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{00630BE6-0075-46D0-803B-96B012420318}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{00630BE6-0075-46D0-803B-96B012420318}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Tests", "Domain.Tests\Domain.Tests.csproj", "{546CC664-CF8B-40D1-B616-62AEE4A2B780}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Tests", "Domain.Tests\Domain.Tests.csproj", "{546CC664-CF8B-40D1-B616-62AEE4A2B780}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
