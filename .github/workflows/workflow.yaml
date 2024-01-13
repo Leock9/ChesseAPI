@@ -30,7 +30,7 @@ jobs:
 
     - name: Run tests
       run: |
-          cd FiapTechChallenge.Domain.Tests
+          cd FiapTechChallenge\Domain.Tests
           dotnet test --no-build
 
 # Gatilho: Executa em commits push e pull requests para a branch main.
