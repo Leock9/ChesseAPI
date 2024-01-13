@@ -24,10 +24,14 @@ jobs:
           dotnet restore
 
     - name: Build
-      run: dotnet build --no-restore
+      run: | 
+          cd FiapTechChallenge
+          dotnet build --no-restore
 
     - name: Run tests
-      run: dotnet test --no-build
+      run: |
+          cd FiapTechChallenge.Tests
+          dotnet test --no-build
 
 # Gatilho: Executa em commits push e pull requests para a branch main.
 # Job: Define um job chamado build-and-test.
