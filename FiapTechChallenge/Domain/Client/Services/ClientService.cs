@@ -1,16 +1,29 @@
 ﻿using Domain.Ports;
 using Domain.Services.Requests;
-using Serilog;
+using Microsoft.Extensions.Logging;
 
 namespace Domain.Services;
 
-public class ClientService(IClientRepositoy clientRepositoy, ILogger logger) : IClientService
+public class ClientService: IClientService
 {
+    private readonly ILogger<ClientService> _logger;
+    private readonly IClientRepository _clientRepositoy;
+
+    public ClientService
+    (
+        ILogger<ClientService> logger,
+        IClientRepository clientRepositoy
+    )
+    {
+        _logger = logger;
+        _clientRepositoy = clientRepositoy;
+    }
+
     public void Create(CreateClientRequest createClientRequest)
     {
         try
         {
-            clientRepositoy.Create
+            _clientRepositoy.Create
                 (new Client
                     (
                     createClientRequest.Name, 
@@ -20,7 +33,7 @@ public class ClientService(IClientRepositoy clientRepositoy, ILogger logger) : I
         }
         catch(Exception ex)
         {
-            logger.Error(ex, ex.Message);
+            _logger.LogError(ex, ex.Message);
             throw;
         }
     }
@@ -29,11 +42,11 @@ public class ClientService(IClientRepositoy clientRepositoy, ILogger logger) : I
     {
         try
         {
-            return await clientRepositoy.GetByDocumentAsync(document);
+            return await _clientRepositoy.GetByDocumentAsync(document);
         }
         catch(Exception ex)
         {
-            logger.Error(ex, ex.Message);
+            _logger.LogError(ex, ex.Message);
             throw;
         }
     }
