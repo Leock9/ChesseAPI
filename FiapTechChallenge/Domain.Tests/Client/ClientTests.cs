@@ -74,6 +74,24 @@ public class ClientTests
 
         action.Should()
               .Throw<DomainException>()
-              .WithMessage("Email is required");
+              .WithMessage("Email is invalid");
+    }
+
+    [Fact]
+    public void CreateClientWhenEmailIsInvalid()
+    {
+        var faker = new Faker("pt_BR");
+        var cpfWithFormat = faker.Person.Cpf();
+        var name = faker.Person.FullName;
+        var email = faker.Person.FullName;
+
+        Action action = () =>
+        {
+            new Client(name, cpfWithFormat!, email);
+        };
+
+        action.Should()
+              .Throw<DomainException>()
+              .WithMessage("Email is invalid");
     }
 }
