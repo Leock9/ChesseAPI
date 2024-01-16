@@ -31,3 +31,14 @@ README.md
 $Recycle.Bin/**
 $Recycle.Bin
 /System Volume Information/
+**/Program Files/**
+**/ProgramData/**
+**/AppData/**
+**/Windows/**
+**/Microsoft/**
+**/Temp/**
+*.lock
+*.log
+*.tmp
+*~$
+.DS_Store
