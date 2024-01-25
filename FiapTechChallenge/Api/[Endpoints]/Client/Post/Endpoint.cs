@@ -11,6 +11,7 @@ public sealed class Endpoint : Endpoint<Request, Response, Mapper>
 
     public override void Configure()
     {
+        AllowAnonymous();
         Post("/client");
     }
 

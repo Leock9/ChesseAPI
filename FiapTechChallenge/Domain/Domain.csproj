@@ -7,8 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ItemMenu\Services\" />
-    <Folder Include="ItemMenu\Ports\" />
     <Folder Include="Order\Services\" />
     <Folder Include="Order\Ports\" />
     <Folder Include="Payment\Entity\" />

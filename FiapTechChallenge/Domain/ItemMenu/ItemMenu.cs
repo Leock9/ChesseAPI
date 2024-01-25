@@ -10,7 +10,8 @@ public record ItemMenu
     decimal Price, 
     int Stock, 
     IEnumerable<Ingredient> Ingredients,
-    Size Size
+    Size Size,
+    Category Category
 )
 {
     public Guid Id { get; init; } = Guid.NewGuid();
@@ -30,11 +31,15 @@ public record ItemMenu
     public IEnumerable<Ingredient> Ingredients { get; init; } = Ingredients.Any() ? Ingredients :
                                             throw new DomainException("Ingredients is required");
 
-    public Size Size { get; init; } =  Size;
-
-    public IEnumerable<Additional> Additionals { get; init; } = new List<Additional>();
+    public Size Size { get; init; } =  GetSize((int)Size);
 
     public bool IsActive { get; set; } = false;
+
+    public Category Category { get; init; } = GetCategory((int)Category);
+
+    public DateTime CreateAt { get; init; } = DateTime.Now;
+
+    public DateTime UpdateAt { get; set; }
 
     public void Activate()
     {
@@ -55,14 +60,40 @@ public record ItemMenu
             Stock = itemMenu.Stock,
             Ingredients = itemMenu.Ingredients ?? this.Ingredients,
             Size = itemMenu.Size,
-            Additionals = itemMenu.Additionals ?? this.Additionals,
+            Category = itemMenu.Category,
+            UpdateAt = DateTime.Now
         };
 
-        if (updatedItemMenu.Stock < 0)
+        if (updatedItemMenu.Stock <= 0)
             updatedItemMenu = updatedItemMenu with { IsActive = false };
 
         return updatedItemMenu;
     }
 
     public bool IsAvailable() => Stock > 0 && Price > 0 && Ingredients.Any();
+
+    public static Size GetSize(int size)
+    {
+        return size switch
+        {
+            0 => Size.S,
+            1 => Size.M,
+            2 => Size.L,
+            _ => throw new DomainException("Size must by: 0 = S, 1 = M or 2 = L!")
+        };
+    }
+
+    public static Category GetCategory(int category)
+    {
+        return category switch
+        {
+            0 => Category.Drink,
+            1 => Category.Sandwich,
+            2 => Category.FrenchFries,
+            3 => Category.Dessert,
+            4 => Category.Salad,
+            5 => Category.Combo,
+            _ => throw new DomainException("Category must by: 0 = Drink, 1 = Sandwich, 2 = FrenchFries, 3 = Dessert, 4 = Saladr, 5 = Combo!")
+        };
+    }
 }

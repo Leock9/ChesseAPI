@@ -3,6 +3,7 @@ using Api;
 using Domain.Ports;
 using Domain.Services;
 using FastEndpoints.Swagger;
+using Infrastructure.MongoDb;
 using Infrastructure.MongoDb.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,11 +32,24 @@ builder.Services.SwaggerDocument(o =>
 
 builder.Services.AddHttpClient();
 
+// ** CONTEXT MONGODB**
+var mongoDbSettings = builder.Configuration.GetSection("MongoDbSettings").Get<MongoDbSettings>();
+
+builder.Services.AddSingleton<Context>
+    (
+    sp => new Context
+                       (
+                        mongoDbSettings!.ConnectionString, 
+                        mongoDbSettings!.DatabaseName
+                        ));
+
 // ** SERVICE **
 builder.Services.AddScoped<IClientService, ClientService>();
+builder.Services.AddScoped<IItemMenuService, ItemMenuService>();
 
 // ** REPOSITORY **
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
+builder.Services.AddScoped<IItemMenuRepository, ItemMenuRepository>();
 
 var app = builder.Build();
 

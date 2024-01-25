@@ -24,8 +24,9 @@ public class ItemMenuTests
             }
         };
         var size = Size.M;
+        var category = Category.Sandwich;
 
-        var itemMenu = new ItemMenu(name, description, price, stock, ingredients, size);
+        var itemMenu = new ItemMenu(name, description, price, stock, ingredients, size, category);
 
         itemMenu.Should()
                 .Match<ItemMenu>(i => i.Name == name)
@@ -54,10 +55,11 @@ public class ItemMenuTests
             }
         };
         var size = Size.M;
+        var category = Category.Sandwich;
 
         Action action = () =>
         {
-            new ItemMenu(name, description, price, stock, ingredients, size);
+            new ItemMenu(name, description, price, stock, ingredients, size, category);
         };
 
         action.Should()
@@ -82,10 +84,11 @@ public class ItemMenuTests
             }
         };
         var size = Size.M;
+        var category = Category.Sandwich;
 
         Action action = () =>
         {
-            new ItemMenu(name, description, price, stock, ingredients, size);
+            new ItemMenu(name, description, price, stock, ingredients, size, category);
         };
 
         action.Should()
@@ -110,10 +113,11 @@ public class ItemMenuTests
             }
         };
         var size = Size.M;
+        var category = Category.Sandwich;
 
         Action action = () =>
         {
-            new ItemMenu(name, description, price, stock, ingredients, size);
+            new ItemMenu(name, description, price, stock, ingredients, size, category);
         };
 
         action.Should()
@@ -138,10 +142,11 @@ public class ItemMenuTests
             }
         };
         var size = Size.M;
+        var category = Category.Sandwich;
 
         Action action = () =>
         {
-            new ItemMenu(name, description, price, stock, ingredients, size);
+            new ItemMenu(name, description, price, stock, ingredients, size, category);
         };
 
         action.Should()
@@ -159,10 +164,11 @@ public class ItemMenuTests
         var stock = faker.Random.Int(1, 100);
         var ingredients = new List<Ingredient>();
         var size = Size.M;
+        var category = Category.Sandwich;
 
         Action action = () =>
         {
-            new ItemMenu(name, description, price, stock, ingredients, size);
+            new ItemMenu(name, description, price, stock, ingredients, size, category);
         };
 
         action.Should()
@@ -187,8 +193,9 @@ public class ItemMenuTests
             }
         };
         var size = Size.M;
+        var category = Category.Sandwich;
 
-        var itemMenu = new ItemMenu(name, description, price, stock, ingredients, size);
+        var itemMenu = new ItemMenu(name, description, price, stock, ingredients, size, category);
 
         itemMenu.Activate();
 
@@ -214,8 +221,9 @@ public class ItemMenuTests
             }
         };
         var size = Size.M;
+        var category = Category.Sandwich;
 
-        var itemMenu = new ItemMenu(name, description, price, stock, ingredients, size);
+        var itemMenu = new ItemMenu(name, description, price, stock, ingredients, size, category);
 
         itemMenu.Deactivate();
 
@@ -241,8 +249,9 @@ public class ItemMenuTests
             }
         };
         var size = Size.M;
+        var category = Category.Sandwich;
 
-        var itemMenu = new ItemMenu(name, description, price, stock, ingredients, size);
+        var itemMenu = new ItemMenu(name, description, price, stock, ingredients, size, category);
 
         var newName = faker.Commerce.ProductName();
         var newDescription = faker.Commerce.ProductDescription();
@@ -256,9 +265,10 @@ public class ItemMenuTests
                 Calories = faker.Random.Int(1, 100)
             }
         };
-        var newSize = Size.M;
+        var newSize = Size.L;
+        var newCategory = Category.Combo;
 
-        var newItemMenu = new ItemMenu(newName, newDescription, newPrice, newStock, newIngredients, newSize);
+        var newItemMenu = new ItemMenu(newName, newDescription, newPrice, newStock, newIngredients, newSize, newCategory);
 
         itemMenu = itemMenu.Update(newItemMenu);
 
@@ -269,6 +279,7 @@ public class ItemMenuTests
             .And.Match<ItemMenu>(i => i.Stock == newStock)
             .And.Match<ItemMenu>(i => i.Ingredients == newIngredients)
             .And.Match<ItemMenu>(i => i.Size == newSize)
+            .And.Match<ItemMenu>(i => i.Category == newCategory)
             .And.NotBeNull();
     }
 
@@ -289,8 +300,10 @@ public class ItemMenuTests
             }
         };
         var size = Size.M;
+        var category = Category.Sandwich;
 
-        var itemMenu = new ItemMenu(name, description, price, stock, ingredients, size);
+
+        var itemMenu = new ItemMenu(name, description, price, stock, ingredients, size, category);
 
         itemMenu.Deactivate();
 

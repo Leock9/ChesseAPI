@@ -26,11 +26,12 @@ public sealed class Validator : Validator<Request>
 
         RuleFor(x => x.Email)
                             .NotEmpty()
-                            .NotNull();
+                            .NotNull()
+                            .EmailAddress();
     }
 }
 
 public sealed class Response
 {
-    public HttpStatusCode StatusCode { get; init; } = HttpStatusCode.Created;
+    public string StatusCode { get; init; } = HttpStatusCode.Created.ToString();
 }

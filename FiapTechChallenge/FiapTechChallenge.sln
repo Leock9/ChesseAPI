@@ -21,7 +21,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Tests", "Domain.Tests\Domain.Tests.csproj", "{546CC664-CF8B-40D1-B616-62AEE4A2B780}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{033D7A6F-2FA1-41C4-B8AF-2B782F6D3B94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{033D7A6F-2FA1-41C4-B8AF-2B782F6D3B94}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{BCD7B5CC-5546-4E70-9F06-0F0D3137E158}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "init", "init", "{BBDFD648-7472-41B0-8F84-209495427DBE}"
+	ProjectSection(SolutionItems) = preProject
+		mongo-init.js = mongo-init.js
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +52,10 @@ Global
 		{033D7A6F-2FA1-41C4-B8AF-2B782F6D3B94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{033D7A6F-2FA1-41C4-B8AF-2B782F6D3B94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{033D7A6F-2FA1-41C4-B8AF-2B782F6D3B94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCD7B5CC-5546-4E70-9F06-0F0D3137E158}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCD7B5CC-5546-4E70-9F06-0F0D3137E158}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCD7B5CC-5546-4E70-9F06-0F0D3137E158}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCD7B5CC-5546-4E70-9F06-0F0D3137E158}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

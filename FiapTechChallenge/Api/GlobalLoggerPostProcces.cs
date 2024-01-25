@@ -18,10 +18,6 @@ public class GlobalLoggerPostProcces(ILogger<GlobalLoggerPostProcces> logger) : 
             hearder.AppendLine($"Host:{ctx.Request.Headers.Host}");
             hearder.AppendLine($"Method:{ctx.Request.Method}");
 
-            var token = ctx.Request.Headers.Authorization.ToString();
-            token = $"{token[..10]}...{token[^3..]}";
-            hearder.AppendLine($"Token:{token}");
-
             var jsonBody = JsonSerializer.Serialize(req, new JsonSerializerOptions
             {
                 WriteIndented = true,
@@ -66,10 +62,6 @@ public class GlobalLoggerPostProcces(ILogger<GlobalLoggerPostProcces> logger) : 
             hearder.AppendLine($"Enpoint:{context.HttpContext.Request.Path}");
             hearder.AppendLine($"Host:{context.HttpContext.Request.Headers.Host}");
             hearder.AppendLine($"Method:{context.HttpContext.Request.Method}");
-
-            var token = context.HttpContext.Request.Headers.Authorization.ToString();
-            token = $"{token[..10]}...{token[^3..]}";
-            hearder.AppendLine($"Token:{token}");
 
             var jsonBody = JsonSerializer.Serialize(context.Request, new JsonSerializerOptions
             {
