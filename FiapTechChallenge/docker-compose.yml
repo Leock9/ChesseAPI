@@ -11,6 +11,7 @@ services:
       - ./data/db:/data/db
       - ./data/configdb:/data/configdb
       - ./init/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro 
+
   api:
     image: lkhouri/api:v1
     build: ./Api
@@ -18,3 +19,17 @@ services:
       - "8080:80"
     depends_on:
       - mongo
+      - rabbitmq
+
+  rabbitmq:
+    image: rabbitmq:3.9.15-management-alpine
+    hostname: rabbitmq
+    ports:
+      - "5672:5672"  # Porta para AMQP
+      - "15672:15672"  # Porta para o painel de controle do RabbitMQ (opcional, para acesso ao RabbitMQ Management)
+    environment:
+      RABBITMQ_DEFAULT_USER: "guest"  
+      RABBITMQ_DEFAULT_PASS: "guest"  
+    volumes:
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq

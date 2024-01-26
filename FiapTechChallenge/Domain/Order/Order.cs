@@ -3,17 +3,19 @@ using Domain.ValueObjects;
 
 namespace Domain;
 
-public record Order(decimal TotalOrder, Guid ClientId)
+public record Order(decimal TotalOrder, string Document, IList<ItemMenu> ItemMenus)
 {
     public Guid Id { get; init; } = Guid.NewGuid();
 
     public decimal TotalOrder { get; init; } = TotalOrder <= 0 ? 
                                                throw new DomainException("Total order is required") : TotalOrder;
 
-    public Status Status { get; init; } = Status.Received;
+    public Status Status { get; set; } = Status.Received;
 
-    public  Guid ClientId { get; init; } = ClientId == Guid.Empty ?
-                                           throw new DomainException("Client Id is required") : ClientId;
+    public string Document { get; init; } = Document; 
+
+    public IList<ItemMenu> ItemMenus { get; init; } = ItemMenus.Count != 0 ? ItemMenus :
+                                                      throw new DomainException("Item Menu is required");
 
     public DateTime CreatedAt { get; init; } = DateTime.Now;
 

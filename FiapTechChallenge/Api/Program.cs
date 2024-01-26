@@ -5,6 +5,9 @@ using Domain.Services;
 using FastEndpoints.Swagger;
 using Infrastructure.MongoDb;
 using Infrastructure.MongoDb.Repository;
+using Infrastructure.PaymentGateway;
+using Infrastructure.RabbitMq;
+using RabbitMQ.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,17 +42,43 @@ builder.Services.AddSingleton<Context>
     (
     sp => new Context
                        (
-                        mongoDbSettings!.ConnectionString, 
+                        mongoDbSettings!.ConnectionString,
                         mongoDbSettings!.DatabaseName
                         ));
+
+// ** RabbitMQ **
+var rabbitMqSettings = builder.Configuration.GetSection("RabbitMqSettings").Get<RabbitMqSettings>();
+
+builder.Services.AddSingleton(sp =>
+{
+    var factory = new ConnectionFactory
+    {
+        HostName = rabbitMqSettings!.HostName,
+        UserName = rabbitMqSettings!.UserName,
+        Password = rabbitMqSettings!.Password,
+        Port = rabbitMqSettings!.Port,
+        DispatchConsumersAsync = true
+    };
+    return factory.CreateConnection();
+});
+
+builder.Services.AddScoped<IModel>(sp =>
+{
+    var connection = sp.GetRequiredService<IConnection>();
+    return connection.CreateModel();
+});
 
 // ** SERVICE **
 builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IItemMenuService, ItemMenuService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
+builder.Services.AddScoped<IOrderQueue, OrderQueue>();
 
 // ** REPOSITORY **
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IItemMenuRepository, ItemMenuRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 var app = builder.Build();
 
