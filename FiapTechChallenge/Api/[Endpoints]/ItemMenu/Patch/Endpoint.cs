@@ -7,7 +7,7 @@ namespace Api.Endpoints.ItemMenu.Patch;
 public sealed class Endpoint : Endpoint<Request, Response, Mapper>
 {
     public ILogger<Endpoint> Log { get; set; } = null!;
-    public IItemMenuService? ItemMenuService { get; }
+    public IItemMenuService? ItemMenuService { get; set;  }
 
     public override void Configure()
     {

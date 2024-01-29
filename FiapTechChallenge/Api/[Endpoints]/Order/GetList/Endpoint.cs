@@ -2,27 +2,25 @@
 using Domain.Services;
 using System.Net;
 
-namespace Api.Endpoints.Client;
+namespace Api.Endpoints.Order.GetList;
 
 public sealed class Endpoint : Endpoint<Request, Response, Mapper>
 {
     public ILogger<Endpoint> Log { get; set; } = null!;
-    public IClientService? ClientService { get; set; }
+    public IOrderService? OrderService { get; set; }
 
     public override void Configure()
     {
-        Get("/client/GetByDocument");
+        AllowAnonymous();
+        Get("/order/getlist");
     }
 
     public override async Task HandleAsync(Request r, CancellationToken c)
     {
         try
         {
-            var result = await ClientService!.GetByDocumentAsync(r.Document);
-
-            if (result is null) ThrowError("Client not found", (int)HttpStatusCode.NotFound);
-
-            await SendAsync(Map.ToResponse(result), cancellation: c);
+            var orders = await OrderService?.GetAll()!;
+            await SendAsync(new Response { Orders = orders }, cancellation: c);
         }
         catch (DomainException dx)
         {

@@ -6,7 +6,6 @@ namespace Infrastructure.MongoDb.Documents;
 public record ClientDocument
 {
     [BsonId]
-    [BsonRepresentation(BsonType.ObjectId)]
     public Guid Id { get; init; }
 
     [BsonElement("name")]

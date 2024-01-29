@@ -42,31 +42,11 @@ builder.Services.AddSingleton<Context>
     (
     sp => new Context
                        (
-                        mongoDbSettings!.ConnectionString,
-                        mongoDbSettings!.DatabaseName
+                        mongoDbSettings!.ConnectionString
                         ));
 
 // ** RabbitMQ **
-var rabbitMqSettings = builder.Configuration.GetSection("RabbitMqSettings").Get<RabbitMqSettings>();
-
-builder.Services.AddSingleton(sp =>
-{
-    var factory = new ConnectionFactory
-    {
-        HostName = rabbitMqSettings!.HostName,
-        UserName = rabbitMqSettings!.UserName,
-        Password = rabbitMqSettings!.Password,
-        Port = rabbitMqSettings!.Port,
-        DispatchConsumersAsync = true
-    };
-    return factory.CreateConnection();
-});
-
-builder.Services.AddScoped<IModel>(sp =>
-{
-    var connection = sp.GetRequiredService<IConnection>();
-    return connection.CreateModel();
-});
+builder.Services.AddSingleton<IRabbitMqSettings>(_ => builder.Configuration.GetSection("RabbitMqSettings").Get<RabbitMqSettings>());
 
 // ** SERVICE **
 builder.Services.AddScoped<IClientService, ClientService>();

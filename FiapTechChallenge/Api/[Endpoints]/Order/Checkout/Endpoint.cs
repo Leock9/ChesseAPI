@@ -7,7 +7,7 @@ namespace Api.Endpoints.Checkout.Post;
 public sealed class Endpoint : Endpoint<Request, Response, Mapper>
 {
     public ILogger<Endpoint> Log { get; set; } = null!;
-    public IOrderService? OrderService { get; }
+    public IOrderService? OrderService { get; set; }
 
     public override void Configure()
     {

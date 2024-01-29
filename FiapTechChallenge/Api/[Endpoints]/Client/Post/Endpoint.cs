@@ -7,7 +7,7 @@ namespace Api.Endpoints.Client.Post;
 public sealed class Endpoint : Endpoint<Request, Response, Mapper>
 {
     public ILogger<Endpoint> Log { get; set; } = null!;
-    public IClientService? ClientService { get; }
+    public IClientService? ClientService { get; set; }
 
     public override void Configure()
     {
