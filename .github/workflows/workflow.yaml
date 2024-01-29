@@ -20,12 +20,12 @@ jobs:
 
     - name: Restore dependencies
       run: | 
-          cd FiapTechChallenge/FiapTechChallenge.sln
+          cd FiapTechChallenge\FiapTechChallenge.sln
           dotnet restore
 
     - name: Build
       run: | 
-          cd FiapTechChallenge/FiapTechChallenge.sln
+          cd FiapTechChallenge\FiapTechChallenge.sln
           dotnet build --no-restore
 
     - name: Run tests
