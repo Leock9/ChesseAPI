@@ -19,8 +19,8 @@ public sealed class Endpoint : Endpoint<Request, Response, Mapper>
     {
         try
         {
-            OrderService?.CreateOrder(r.BaseOrderRequest);
-            await SendAsync(new Response(), cancellation: c);
+            var orderId = OrderService?.CreateOrder(r.BaseOrderRequest);
+            await SendAsync(new Response { OrderId = orderId.GetValueOrDefault()}, (int)HttpStatusCode.Created, cancellation: c);
         }
         catch (DomainException dx)
         {

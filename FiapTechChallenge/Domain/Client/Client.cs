@@ -13,5 +13,5 @@ public record Client(string Name, string Document, string Email)
                                             Document : throw new DomainException("Document is invalid");
 
     public string Email { get; init; } = string.IsNullOrEmpty(Email) || !Email.Contains('@') ?
-                                        throw new DomainException("Email is invalid") : Name;
+                                        throw new DomainException("Email is invalid") : Email;
 }

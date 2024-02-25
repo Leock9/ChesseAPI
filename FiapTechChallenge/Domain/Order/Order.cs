@@ -3,7 +3,7 @@ using Domain.ValueObjects;
 
 namespace Domain;
 
-public record Order(decimal TotalOrder, string Document, IList<ItemMenu> ItemMenus)
+public record Order(decimal TotalOrder, string Document, IEnumerable<string> ItemMenuIds)
 {
     public Guid Id { get; init; } = Guid.NewGuid();
 
@@ -14,7 +14,7 @@ public record Order(decimal TotalOrder, string Document, IList<ItemMenu> ItemMen
 
     public string Document { get; init; } = Document; 
 
-    public IList<ItemMenu> ItemMenus { get; init; } = ItemMenus.Count != 0 ? ItemMenus :
+    public IEnumerable<string> ItemMenusId { get; init; } = ItemMenuIds.Count() is not 0 ? ItemMenuIds :
                                                       throw new DomainException("Item Menu is required");
 
     public DateTime CreatedAt { get; init; } = DateTime.Now;

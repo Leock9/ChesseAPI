@@ -15,28 +15,8 @@ public class OrderTests
         var faker = new Faker("pt_BR");
         var document = faker.Person.Cpf();
         var totalOrder = faker.Random.Decimal(1, 100);
-        var itemsMenu = new List<ItemMenu>
-        {
-            new
-            (
-                faker.Commerce.ProductName(),
-                faker.Commerce.ProductDescription(),
-                faker.Random.Decimal(1, 100),
-                faker.Random.Int(1, 100),
-                 new List<Ingredient>
-                 {
-                   new()
-                   {
-                       Name = faker.Commerce.ProductMaterial(),
-                       Calories = faker.Random.Int(1, 100)
-                   }
-                 },
-                 Size.M,
-                 Category.Sandwich
-            )
-        };
-
-        var order = new Order(totalOrder, document, itemsMenu);
+        var itemMenuIds = faker.Make(10, () => Guid.NewGuid().ToString());
+        var order = new Order(totalOrder, document, itemMenuIds);
 
         order.Should()
              .Match<Order>(o => o.TotalOrder == totalOrder)
@@ -51,30 +31,11 @@ public class OrderTests
         var faker = new Faker("pt_BR");
         var document = faker.Person.Cpf();
         var totalOrder = 0;
-        var itemsMenu = new List<ItemMenu>
-        {
-            new
-            (
-                faker.Commerce.ProductName(),
-                faker.Commerce.ProductDescription(),
-                faker.Random.Decimal(1, 100),
-                faker.Random.Int(1, 100),
-                 new List<Ingredient>
-                 {
-                   new()
-                   {
-                       Name = faker.Commerce.ProductMaterial(),
-                       Calories = faker.Random.Int(1, 100)
-                   }
-                 },
-                 Size.M,
-                 Category.Sandwich
-            )
-        };
+        var itemMenuIds = faker.Make(10, () => Guid.NewGuid().ToString());
 
         Action action = () =>
         {
-            new Order(totalOrder, document, itemsMenu);
+            new Order(totalOrder, document, itemMenuIds);
         };
 
         action.Should()
@@ -83,70 +44,14 @@ public class OrderTests
     }
 
     [Fact]
-    public void CreateOrderWhenClientIdIsEmpty()
-    {
-        var faker = new Faker("pt_BR");
-        var document = string.Empty;
-        var totalOrder = 10;
-        var itemsMenu = new List<ItemMenu>
-        {
-            new
-            (
-                faker.Commerce.ProductName(),
-                faker.Commerce.ProductDescription(),
-                faker.Random.Decimal(1, 100),
-                faker.Random.Int(1, 100),
-                 new List<Ingredient>
-                 {
-                   new()
-                   {
-                       Name = faker.Commerce.ProductMaterial(),
-                       Calories = faker.Random.Int(1, 100)
-                   }
-                 },
-                 Size.M,
-                 Category.Sandwich
-            )
-        };
-
-        Action action = () =>
-        {
-            new Order(totalOrder, document, itemsMenu);
-        };
-
-        action.Should()
-              .Throw<DomainException>()
-              .WithMessage("Client Id is required");
-    }
-
-    [Fact]
     public void ChangeOrderStatusToPreparing()
     {
         var faker = new Faker("pt_BR");
         var document = faker.Person.Cpf();
         var totalOrder = faker.Random.Decimal(1, 100);
-        var itemsMenu = new List<ItemMenu>
-        {
-            new
-            (
-                faker.Commerce.ProductName(),
-                faker.Commerce.ProductDescription(),
-                faker.Random.Decimal(1, 100),
-                faker.Random.Int(1, 100),
-                 new List<Ingredient>
-                 {
-                   new()
-                   {
-                       Name = faker.Commerce.ProductMaterial(),
-                       Calories = faker.Random.Int(1, 100)
-                   }
-                 },
-                 Size.M,
-                 Category.Sandwich
-            )
-        };
+        var itemMenuIds = faker.Make(10, () => Guid.NewGuid().ToString());
 
-        var order = new Order(totalOrder, document, itemsMenu);
+        var order = new Order(totalOrder, document, itemMenuIds);
 
         order = order.ChangeStatus(Status.Preparation);
 
@@ -161,28 +66,8 @@ public class OrderTests
         var faker = new Faker("pt_BR");
         var document = faker.Person.Cpf();
         var totalOrder = faker.Random.Decimal(1, 100);
-        var itemsMenu = new List<ItemMenu>
-        {
-            new
-            (
-                faker.Commerce.ProductName(),
-                faker.Commerce.ProductDescription(),
-                faker.Random.Decimal(1, 100),
-                faker.Random.Int(1, 100),
-                 new List<Ingredient>
-                 {
-                   new()
-                   {
-                       Name = faker.Commerce.ProductMaterial(),
-                       Calories = faker.Random.Int(1, 100)
-                   }
-                 },
-                 Size.M,
-                 Category.Sandwich
-            )
-        };
-
-        var order = new Order(totalOrder, document, itemsMenu);
+        var itemMenuIds = faker.Make(10, () => Guid.NewGuid().ToString());
+        var order = new Order(totalOrder, document, itemMenuIds);
 
         order = order.ChangeStatus(Status.Preparation);
         order = order.ChangeStatus(Status.Ready);
@@ -198,28 +83,8 @@ public class OrderTests
         var faker = new Faker("pt_BR");
         var document = faker.Person.Cpf();
         var totalOrder = faker.Random.Decimal(1, 100);
-        var itemsMenu = new List<ItemMenu>
-        {
-            new
-            (
-                faker.Commerce.ProductName(),
-                faker.Commerce.ProductDescription(),
-                faker.Random.Decimal(1, 100),
-                faker.Random.Int(1, 100),
-                 new List<Ingredient>
-                 {
-                   new()
-                   {
-                       Name = faker.Commerce.ProductMaterial(),
-                       Calories = faker.Random.Int(1, 100)
-                   }
-                 },
-                 Size.M,
-                 Category.Sandwich
-            )
-        };
-
-        var order = new Order(totalOrder, document, itemsMenu);
+        var itemMenuIds = faker.Make(10, () => Guid.NewGuid().ToString());
+        var order = new Order(totalOrder, document, itemMenuIds);
 
         order = order.ChangeStatus(Status.Preparation);
         order = order.ChangeStatus(Status.Ready);
@@ -236,28 +101,8 @@ public class OrderTests
         var faker = new Faker("pt_BR");
         var document = faker.Person.Cpf();
         var totalOrder = faker.Random.Decimal(1, 100);
-        var itemsMenu = new List<ItemMenu>
-        {
-            new
-            (
-                faker.Commerce.ProductName(),
-                faker.Commerce.ProductDescription(),
-                faker.Random.Decimal(1, 100),
-                faker.Random.Int(1, 100),
-                 new List<Ingredient>
-                 {
-                   new()
-                   {
-                       Name = faker.Commerce.ProductMaterial(),
-                       Calories = faker.Random.Int(1, 100)
-                   }
-                 },
-                 Size.M,
-                 Category.Sandwich
-            )
-        };
-
-        var order = new Order(totalOrder, document, itemsMenu);
+        var itemMenuIds = faker.Make(10, () => Guid.NewGuid().ToString());
+        var order = new Order(totalOrder, document, itemMenuIds);
 
         Action action = () =>
         {
@@ -275,11 +120,11 @@ public class OrderTests
         var faker = new Faker("pt_BR");
         var document = faker.Person.Cpf();
         var totalOrder = faker.Random.Decimal(1, 100);
-        var itemsMenu = new List<ItemMenu>();
+        var itemMenuIds = new List<string>();
 
         Action action = () =>
         {
-            new Order(totalOrder, document, itemsMenu);
+            new Order(totalOrder, document, itemMenuIds);
         };
 
         action.Should()

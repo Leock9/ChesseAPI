@@ -55,8 +55,8 @@ internal sealed class Validator : Validator<Request>
                             .NotNull();
 
         RuleFor(x => x.CategoryId)
-                            .LessThan(0)
-                            .GreaterThan(5)
+                            .GreaterThan(0)
+                            .LessThan(5)
                             .NotEmpty()
                             .NotNull();
     }

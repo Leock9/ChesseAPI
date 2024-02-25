@@ -4,5 +4,5 @@ public interface IOrderRepository
 {
     public void Create(Order order);
     public Task<IEnumerable<Order>> GetAll();
-    public void UpdateAsync(Order order);
+    public Task UpdateAsync(Order order);
 }

@@ -27,7 +27,7 @@ public class OrderService : IOrderService
         _queue = queue; 
     }
 
-    public void CreateOrder(BaseOrderRequest orderRequest)
+    public Guid CreateOrder(BaseOrderRequest orderRequest)
     {
         try
         {
@@ -38,11 +38,13 @@ public class OrderService : IOrderService
             (
              orderRequest.TotalOrder,
              orderRequest.Document,
-             orderRequest.ItemMenus
+             orderRequest.ItemMenuIds
             );
 
             _orderRepository.Create(order);
             _queue.Publish(order);
+
+            return order.Id;
         }
         catch (Exception ex)
         {

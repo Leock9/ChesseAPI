@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using System.Net;
 
 namespace Api.Endpoints.ItemMenu.GetCategory;
 
@@ -13,8 +12,8 @@ public sealed class Validator : Validator<Request>
     public Validator()
     {
         RuleFor(x => x.CategoryId)
-                            .LessThan (0)
-                            .GreaterThan(5)
+                            .GreaterThan (0)
+                            .LessThan(5)
                             .NotEmpty()
                             .NotNull();
                            
@@ -23,5 +22,25 @@ public sealed class Validator : Validator<Request>
 
 public sealed class Response
 {
-    public string StatusCode { get; init; } = HttpStatusCode.OK.ToString();
+    public IEnumerable<ItemMenuDto> Items { get; init; } = new List<ItemMenuDto>();
 }
+
+public record ItemMenuDto
+(
+    Guid Id, 
+    string Name, 
+    string Description, 
+    decimal Price, 
+    int Stock, 
+    IEnumerable<IngredientDto> Ingredients,
+    int CategoryId, 
+    string CategoryName, 
+    string Size,    
+    bool IsActive
+);
+
+public record IngredientDto 
+(
+       string Name, 
+       int Calories
+);

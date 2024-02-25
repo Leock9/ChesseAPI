@@ -3,11 +3,10 @@ using Api;
 using Domain.Ports;
 using Domain.Services;
 using FastEndpoints.Swagger;
-using Infrastructure.MongoDb;
-using Infrastructure.MongoDb.Repository;
 using Infrastructure.PaymentGateway;
+using Infrastructure.PostgreDb;
+using Infrastructure.PostgreDb.Repository;
 using Infrastructure.RabbitMq;
-using RabbitMQ.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,14 +34,14 @@ builder.Services.SwaggerDocument(o =>
 
 builder.Services.AddHttpClient();
 
-// ** CONTEXT MONGODB**
-var mongoDbSettings = builder.Configuration.GetSection("MongoDbSettings").Get<MongoDbSettings>();
+// ** CONTEXT POSTGRE**
+var postgreDbSettings = builder.Configuration.GetSection("PostgreDbSettings").Get<PostgreDbSettings>();
 
 builder.Services.AddSingleton<Context>
     (
     sp => new Context
                        (
-                        mongoDbSettings!.ConnectionString
+                        postgreDbSettings!.PostgresConnection
                         ));
 
 // ** RabbitMQ **

@@ -74,7 +74,7 @@ public class ItemMenuService : IItemMenuService
     {
         try
         {
-            return await _itemMenuRepository.GetByCategory(ItemMenu.GetCategory(categoryId));
+            return await _itemMenuRepository.GetByCategory(categoryId);
         }
         catch (Exception ex)
         {

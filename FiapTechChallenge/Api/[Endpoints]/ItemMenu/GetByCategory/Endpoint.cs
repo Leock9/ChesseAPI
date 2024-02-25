@@ -19,8 +19,8 @@ public sealed class Endpoint : Endpoint<Request, Response, Mapper>
     {
         try
         {
-            ItemMenuService?.GetByCategory(r.CategoryId);
-            await SendAsync(new Response(), cancellation: c);
+            var itemMenus = await  ItemMenuService?.GetByCategory(r.CategoryId);
+            await SendAsync(Map.ToResponse(itemMenus), cancellation: c);
         }
         catch (DomainException dx)
         {

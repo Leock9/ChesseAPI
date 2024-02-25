@@ -82,17 +82,12 @@ public class GlobalLoggerPostProcces(ILogger<GlobalLoggerPostProcces> logger) : 
             }
         }
 
-        if (context.Response is not null)
+        if (context.HttpContext.Response is not null)
         {
             _logger.LogInformation
                     (
-                        "Endpoint retornou StatusCode:{ctx.Response?.StatusCode} Mensagem:{res}",
-                        context.HttpContext.Response?.StatusCode,
-                        JsonSerializer.Serialize(context.HttpContext.Response, new JsonSerializerOptions
-                        {
-                            WriteIndented = true,
-                            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
-                        })
+                        "Endpoint retornou StatusCode:{ctx.Response?.StatusCode}",
+                        context.HttpContext.Response?.StatusCode
                     );
         }
 

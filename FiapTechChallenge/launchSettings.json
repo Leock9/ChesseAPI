@@ -5,8 +5,9 @@
       "commandVersion": "1.0",
       "serviceActions": {
         "api": "StartDebugging",
-        "mongo": "StartWithoutDebugging",
-        "rabbitmq": "StartWithoutDebugging"
+        "pgadmin": "StartWithoutDebugging",
+        "rabbitmq": "StartWithoutDebugging",
+        "pgdb": "StartWithoutDebugging"
       }
     }
   }

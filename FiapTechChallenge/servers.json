@@ -1,0 +1,15 @@
+{
+    "Servers": {
+        "1": {
+            "Name": "My PG Server",
+            "Group": "Servers",
+            "Host": "pgdb",
+            "Port": 5432,
+            "MaintenanceDB": "postgres",
+            "Username": "passUser",
+            "Password": "pass@123",
+            "SSLMode": "prefer",
+            "DBRestriction": "db-burger"
+        }
+    }
+}
