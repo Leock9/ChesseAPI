@@ -19,26 +19,10 @@ jobs:
         dotnet-version: '8.0'
 
     - name: Restore dependencies
-      run: | 
-          cd FiapTechChallenge\FiapTechChallenge.sln
-          dotnet restore
+      run: dotnet restore FiapTechChallenge/FiapTechChallenge.sln
 
     - name: Build
-      run: | 
-          cd FiapTechChallenge\FiapTechChallenge.sln
-          dotnet build --no-restore
+      run: dotnet build FiapTechChallenge/FiapTechChallenge.sln --no-restore
 
     - name: Run tests
-      run: |
-          cd FiapTechChallenge\Domain.Tests
-          dotnet test --no-build
-
-# Gatilho: Executa em commits push e pull requests para a branch main.
-# Job: Define um job chamado build-and-test.
-# Runner: Usa a última versão do Windows como ambiente de execução.
-# Passos:
-# Checkout: Faz checkout do código do seu repositório.
-# Setup .NET: Configura a versão especificada do .NET (neste caso, a última versão do .NET 8).
-# Restore dependencies: Restaura as dependências do projeto .NET.
-# Build: Compila o projeto sem restaurar as dependências (já feito anteriormente).
-# Run tests: Executa os testes de unidade sem recompilar o projeto.
+      run: dotnet test FiapTechChallenge/Domain.Tests/Domain.Tests.csproj --no-build
