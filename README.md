@@ -1,4 +1,4 @@
-# FiapTechChallenge API
+# FiapTechChallenge
 
 ![Build Status](https://github.com/Leock9/fiap-tech-challenge/actions/workflows/workflow.yaml/badge.svg)
 
