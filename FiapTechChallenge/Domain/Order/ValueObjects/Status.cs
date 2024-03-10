@@ -2,6 +2,7 @@
 
 public enum Status
 {
+    PaymentPending = 0,
     Received = 1,
     Preparation = 2,
     Ready = 3,

@@ -1,6 +1,4 @@
-﻿
-using Domain.Entity.Payment;
-using Domain.Ports;
+﻿using Domain.Ports;
 using Domain.Services.Requests;
 using Microsoft.Extensions.Logging;
 
@@ -31,18 +29,21 @@ public class OrderService : IOrderService
     {
         try
         {
-            if (!Task.Run(() => _paymentService.PayAsync(new Payment(orderRequest.TotalOrder))).Result)
-                throw new Exception("Payment failed");
+            var payment = new Payment(orderRequest.TotalOrder);
+             payment = _paymentService.PayAsync(payment);
 
             var order = new Order
             (
              orderRequest.TotalOrder,
              orderRequest.Document,
-             orderRequest.ItemMenuIds
+             orderRequest.ItemMenuIds,
+             payment
             );
 
             _orderRepository.Create(order);
-            _queue.Publish(order);
+
+            if(order.Status == ValueObjects.Status.Received && payment.IsAproved) 
+                _queue.Publish(order);
 
             return order.Id;
         }
@@ -53,11 +54,15 @@ public class OrderService : IOrderService
         }
     }
 
-    public Task<IEnumerable<Order>> GetAll()
+    public async Task<IEnumerable<Order>> GetAll()
     {
         try
         {
-            return _orderRepository.GetAll();
+            var orders =  await _orderRepository.GetAll();
+
+            return orders
+                  .OrderBy(x => x.CreatedAt)
+                  .Where(x => x.Status != ValueObjects.Status.Finished);
         }
         catch (Exception ex)
         {
@@ -66,8 +71,23 @@ public class OrderService : IOrderService
         }
     }
 
-    public void UpdateStatusOrderAsync(Order order)
+    public async Task UpdateStatusOrderAsync(UpdateOrderStatusRequest orderRequest)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var order = await _orderRepository.GetById(orderRequest.OrderId) ??
+                throw new NullReferenceException("Order not found");
+
+            order = order.ChangeStatus((ValueObjects.Status)orderRequest.Status);
+            await _orderRepository.UpdateAsync(order);
+            _logger.LogInformation($"Order {order.Id} status changed to {order.Status}");
+
+            _queue.Publish(order);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            throw;
+        }
     }
 }

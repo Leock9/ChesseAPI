@@ -4,6 +4,7 @@ using Domain.Ports;
 using Domain.Services;
 using FastEndpoints.Swagger;
 using Infrastructure.PaymentGateway;
+using Infrastructure.PaymentGateway.Webhook;
 using Infrastructure.PostgreDb;
 using Infrastructure.PostgreDb.Repository;
 using Infrastructure.RabbitMq;
@@ -53,6 +54,7 @@ builder.Services.AddScoped<IItemMenuService, ItemMenuService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<IOrderQueue, OrderQueue>();
+builder.Services.AddScoped<IPaymentWebHook, PaymentWebHook>();
 
 // ** REPOSITORY **
 builder.Services.AddScoped<IClientRepository, ClientRepository>();

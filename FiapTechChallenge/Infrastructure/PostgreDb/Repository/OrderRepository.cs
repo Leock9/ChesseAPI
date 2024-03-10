@@ -38,28 +38,38 @@ public class OrderRepository : IOrderRepository
         await using var conn = _context.GetConnection();
         await conn.OpenAsync();
 
-        const string commandText = "SELECT order_data FROM orders;";
+        const string commandText = "SELECT order_data FROM orders";
         await using var cmd = new NpgsqlCommand(commandText, conn);
         await using var reader = await cmd.ExecuteReaderAsync();
 
         while (await reader.ReadAsync())
         {
-            var orderJson = reader.GetString(0); 
-            try
-            {
-                var order = await JsonSerializer.DeserializeAsync<Order>(new MemoryStream(System.Text.Encoding.UTF8.GetBytes(orderJson)));
-                if (order != null)
-                {
-                    orders.Add(order);
-                }
-            }
-            catch (JsonException ex)
-            {
-                Console.WriteLine($"Erro ao desserializar o objeto Order: {ex.Message}");
-            }
+            var orderJson = reader.GetString(0);
+            var order = JsonSerializer.Deserialize<Order>(orderJson);
+            if (order != null)
+                orders.Add(order);
         }
 
+        await conn.CloseAsync();
         return orders;
+    }
+
+    public async Task<Order> GetById(Guid id)
+    {
+        await using var conn = _context.GetConnection();
+        await conn.OpenAsync();
+
+        await using var cmd = new NpgsqlCommand("SELECT order_data FROM orders WHERE order_data->>'Id' = @Id::text", conn);
+
+        cmd.Parameters.Add(new NpgsqlParameter("Id", id));
+
+        await using var reader = await cmd.ExecuteReaderAsync();
+        if (!await reader.ReadAsync()) return null; 
+
+        var jsonData = reader.GetString(0);
+
+        await conn.CloseAsync();
+        return JsonSerializer.Deserialize<Order>(jsonData);
     }
 
     public async Task UpdateAsync(Order order)
@@ -70,20 +80,20 @@ public class OrderRepository : IOrderRepository
         var orderJson = JsonSerializer.Serialize(order);
 
         var commandText = @"
-            UPDATE orders
-            SET order_data = @orderData, updated_at = NOW()
-            WHERE id = @id;
+        UPDATE orders
+        SET order_data = @OrderData::jsonb
+        WHERE id = @Id;
         ";
 
         await using var cmd = new NpgsqlCommand(commandText, conn);
-        cmd.Parameters.AddWithValue("@id", order.Id);
-        cmd.Parameters.AddWithValue("@orderData", orderJson);
+
+        cmd.Parameters.AddWithValue("@Id", order.Id);
+        cmd.Parameters.AddWithValue("@OrderData", orderJson);
 
         var rowsAffected = await cmd.ExecuteNonQueryAsync();
+        await conn.CloseAsync();
         if (rowsAffected == 0)
-        {
-            throw new InvalidOperationException($"Pedido com ID {order.Id} não encontrado.");
-        }
+            throw new InvalidOperationException($"Pedido com ID {order.Id} não encontrado para atualização.");
     }
 
     private async Task EnsureTableExistsAsync()

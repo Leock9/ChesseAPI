@@ -3,7 +3,6 @@ using Bogus.Extensions.Brazil;
 using Domain.Base;
 using Domain.ValueObjects;
 using FluentAssertions;
-using System.Reflection.Metadata;
 
 namespace Domain.Tests;
 
@@ -16,7 +15,8 @@ public class OrderTests
         var document = faker.Person.Cpf();
         var totalOrder = faker.Random.Decimal(1, 100);
         var itemMenuIds = faker.Make(10, () => Guid.NewGuid().ToString());
-        var order = new Order(totalOrder, document, itemMenuIds);
+        var payment = new Payment(totalOrder) { IsAproved = true };
+        var order = new Order(totalOrder, document, itemMenuIds, payment);
 
         order.Should()
              .Match<Order>(o => o.TotalOrder == totalOrder)
@@ -32,10 +32,11 @@ public class OrderTests
         var document = faker.Person.Cpf();
         var totalOrder = 0;
         var itemMenuIds = faker.Make(10, () => Guid.NewGuid().ToString());
+        var payment = new Payment(totalOrder) { IsAproved = true };
 
         Action action = () =>
         {
-            new Order(totalOrder, document, itemMenuIds);
+            new Order(totalOrder, document, itemMenuIds, payment);
         };
 
         action.Should()
@@ -50,8 +51,9 @@ public class OrderTests
         var document = faker.Person.Cpf();
         var totalOrder = faker.Random.Decimal(1, 100);
         var itemMenuIds = faker.Make(10, () => Guid.NewGuid().ToString());
+        var payment = new Payment(totalOrder) { IsAproved = true };
 
-        var order = new Order(totalOrder, document, itemMenuIds);
+        var order = new Order(totalOrder, document, itemMenuIds, payment);
 
         order = order.ChangeStatus(Status.Preparation);
 
@@ -67,7 +69,8 @@ public class OrderTests
         var document = faker.Person.Cpf();
         var totalOrder = faker.Random.Decimal(1, 100);
         var itemMenuIds = faker.Make(10, () => Guid.NewGuid().ToString());
-        var order = new Order(totalOrder, document, itemMenuIds);
+        var payment = new Payment(totalOrder) { IsAproved = true };
+        var order = new Order(totalOrder, document, itemMenuIds, payment);
 
         order = order.ChangeStatus(Status.Preparation);
         order = order.ChangeStatus(Status.Ready);
@@ -84,7 +87,8 @@ public class OrderTests
         var document = faker.Person.Cpf();
         var totalOrder = faker.Random.Decimal(1, 100);
         var itemMenuIds = faker.Make(10, () => Guid.NewGuid().ToString());
-        var order = new Order(totalOrder, document, itemMenuIds);
+        var payment = new Payment(totalOrder) { IsAproved = true };
+        var order = new Order(totalOrder, document, itemMenuIds, payment);
 
         order = order.ChangeStatus(Status.Preparation);
         order = order.ChangeStatus(Status.Ready);
@@ -102,7 +106,8 @@ public class OrderTests
         var document = faker.Person.Cpf();
         var totalOrder = faker.Random.Decimal(1, 100);
         var itemMenuIds = faker.Make(10, () => Guid.NewGuid().ToString());
-        var order = new Order(totalOrder, document, itemMenuIds);
+        var payment = new Payment(totalOrder) { IsAproved = true };
+        var order = new Order(totalOrder, document, itemMenuIds, payment);
 
         Action action = () =>
         {
@@ -120,15 +125,31 @@ public class OrderTests
         var faker = new Faker("pt_BR");
         var document = faker.Person.Cpf();
         var totalOrder = faker.Random.Decimal(1, 100);
+        var payment = new Payment(totalOrder) { IsAproved = true };
         var itemMenuIds = new List<string>();
 
         Action action = () =>
         {
-            new Order(totalOrder, document, itemMenuIds);
+            new Order(totalOrder, document, itemMenuIds, payment);
         };
 
         action.Should()
               .Throw<DomainException>()
               .WithMessage("Item Menu is required");
+    }
+
+    [Fact]
+    public void CreateOrderWhenPaymentIsNotAproved()
+    {
+        var faker = new Faker("pt_BR");
+        var document = faker.Person.Cpf();
+        var totalOrder = faker.Random.Decimal(1, 100);
+        var itemMenuIds = faker.Make(10, () => Guid.NewGuid().ToString());
+        var payment = new Payment(totalOrder);
+        var order = new Order(totalOrder, document, itemMenuIds, payment);
+
+        order.Should()
+             .Match<Order>(o => o.Status == Status.PaymentPending)
+             .And.NotBeNull();
     }   
 }

@@ -1,8 +1,8 @@
-﻿using Domain.Entity.Payment;
-
-namespace Domain.Services;
+﻿namespace Domain.Services;
 
 public interface IPaymentService
 {
-    public Task<bool> PayAsync(Payment payment);
+    public Payment PayAsync(Payment payment);
+
+    public void AprovePayment(Payment payment);
 }

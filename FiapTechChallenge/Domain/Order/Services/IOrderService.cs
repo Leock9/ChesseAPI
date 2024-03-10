@@ -6,5 +6,5 @@ public interface IOrderService
 {
     public Guid CreateOrder(BaseOrderRequest orderRequest);
     public Task<IEnumerable<Order>> GetAll();
-    public void UpdateStatusOrderAsync(Order order);
+    public Task UpdateStatusOrderAsync(UpdateOrderStatusRequest orderRequest);
 }

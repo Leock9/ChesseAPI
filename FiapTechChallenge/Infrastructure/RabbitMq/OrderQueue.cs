@@ -24,11 +24,6 @@ public class OrderQueue : IOrderQueue
         };
     }
 
-    public List<Order> Consume()
-    {
-        throw new NotImplementedException();
-    }
-
     public void Publish(Order order)
     {
         using var connection = _connectionFactory.CreateConnection();
@@ -36,7 +31,7 @@ public class OrderQueue : IOrderQueue
 
         channel.QueueDeclare
         (
-         queue: "order_queue",
+         queue: $"order_{order.Status}",
          durable: false,
          exclusive: false,
          autoDelete: false,
@@ -46,7 +41,7 @@ public class OrderQueue : IOrderQueue
         channel.BasicPublish
         (
             exchange: "",
-            routingKey: "order_queue",
+            routingKey: $"order_{order.Status}",
             basicProperties: null,
             body: Encoding.UTF8.GetBytes(JsonSerializer.Serialize(order))
          );

@@ -64,5 +64,5 @@ internal sealed class Validator : Validator<Request>
 
 public sealed class Response
 {
-    public string StatusCode { get; init; } = HttpStatusCode.Created.ToString();
+    public string Message { get; init; } = string.Empty;
 }

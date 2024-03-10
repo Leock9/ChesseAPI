@@ -2,30 +2,30 @@
 using Domain.Services;
 using System.Net;
 
-namespace Api.Endpoints.ItemMenu.Post;
+namespace Api.Endpoints.Order.UpdateStatus;
 
-public sealed class Endpoint : Endpoint<Request, Response, Mapper>
+public class Endpoint : Endpoint<Request, Response, Mapper>
 {
     public ILogger<Endpoint> Log { get; set; } = null!;
-    public IItemMenuService? ItemMenuService { get; set; }
+    public IOrderService? OrderService { get; set; }
 
     public override void Configure()
     {
         AllowAnonymous();
-        Post("/itemMenu");
+        Patch("/order/UpdateStatus");
     }
 
     public override async Task HandleAsync(Request r, CancellationToken c)
     {
         try
         {
-            ItemMenuService?.Create(Map.ToRequest(r));
+            await OrderService?.UpdateStatusOrderAsync(Map.ToRequest(r))!;
             await SendAsync
-                    (
-                    new Response { Message = HttpStatusCode.Created.ToString() }, 
-                    ((int)HttpStatusCode.Created), 
-                    cancellation: c
-                    );
+                      (
+                      new Response { Message = HttpStatusCode.OK.ToString() },
+                      ((int)HttpStatusCode.OK),
+                      cancellation: c
+                      );
         }
         catch (DomainException dx)
         {

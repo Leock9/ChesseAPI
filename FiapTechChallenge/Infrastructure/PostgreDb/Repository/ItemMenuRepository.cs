@@ -75,9 +75,7 @@ public class ItemMenuRepository : IItemMenuRepository
             var jsonData = reader.GetString(0);
             var itemMenu = JsonSerializer.Deserialize<ItemMenu>(jsonData);
             if (itemMenu != null)
-            {
                 itemMenus.Add(itemMenu);
-            }
         }
 
         await conn.CloseAsync();

@@ -4,5 +4,5 @@ public record BaseOrderRequest
 (
     decimal TotalOrder,
     string Document,
-    IEnumerable<string> ItemMenuIds
+    IList<string> ItemMenuIds
 );
