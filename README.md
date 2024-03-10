@@ -2,8 +2,7 @@
 
 ![Build Status](https://github.com/Leock9/fiap-tech-challenge/actions/workflows/workflow.yaml/badge.svg)
 
-
-FiapTechChallenge é uma API robusta construída com .NET 8, utilizando o FastEndpoint para desenvolvimento rápido de APIs. Ela utiliza PostgreSQL para persistência de dados e RabbitMQ para gerenciamento de mensagens, visando oferecer alto desempenho e confiabilidade.
+ChesseAPI é uma robusta estrutura construída com .NET 8, utilizando o FastEndpoint para desenvolvimento rápido de APIs. Ela utiliza PostgreSQL para persistência de dados e RabbitMQ para gerenciamento de mensagens, visando oferecer alto desempenho e confiabilidade.
 
 ## Características
 
@@ -14,10 +13,11 @@ FiapTechChallenge é uma API robusta construída com .NET 8, utilizando o FastEn
 
 ## Pré-requisitos
 
+- Kind (https://kind.sigs.k8s.io/)
 - Docker e Docker Compose
 - SDK do .NET 8
 
-## Início Rápido
+## Início Rápido com Docker-Compose
 
 1. Clone o repositório:
     ```
@@ -29,13 +29,55 @@ FiapTechChallenge é uma API robusta construída com .NET 8, utilizando o FastEn
     ```
     docker-compose up --build
     ```
-
 Os serviços estarão disponíveis em:
 
 - **API**: <http://localhost:5000/>
 - **Swagger**: <http://localhost:{ServicePort}/swagger> (Rodando via VS irá abrir automaticamente)
 - **Gerenciamento RabbitMQ**: <http://localhost:15672/>
 - **pgAdmin**: <http://localhost:5050/>
+
+## Docker Compose
+
+Nossos serviços são definidos no `docker-compose.yml`. Aqui está uma breve visão geral:
+
+- `api`: Nosso serviço de API construído a partir da imagem `lkhouri/api:v1`.
+- `rabbitmq`: Serviço de corretagem de mensagens com o plugin de gerenciamento.
+- `pgdb`: Serviço de banco de dados PostgreSQL.
+- `pgadmin`: Administração de PostgreSQL baseada na web.
+
+## Início Rápido com Kubernetes (K8s)
+
+Siga estes passos para implantar o FiapTechChallenge usando Kubernetes:
+
+1. **Clone o Repositório**
+   - Clone o repositório e navegue até o diretório do projeto:
+     ```bash
+     git clone https://github.com/Leock9/fiap-tech-challenge.git
+     cd FiapTechChallenge
+     ```
+
+2. **Instale o Kind**
+   - Instale o Kind seguindo as instruções no [Guia Rápido do Kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installing-with-a-package-manager).
+
+3. **Prepare o Ambiente**
+   - Abra o PowerShell e navegue até o diretório raiz da aplicação:
+     ```powershell
+     cd caminho\para\fiap-tech-challenge\FiapTechChallenge
+     ```
+
+4. **Aplique os Manifestos do Kubernetes**
+   - Execute o comando abaixo para aplicar todos os manifestos do Kubernetes localizados no diretório do projeto:
+     ```powershell
+     Get-ChildItem -Path .\ -Recurse -Filter *.yaml | ForEach-Object { kubectl apply -f $_.FullName }
+     ```
+   - Este comando busca todos os arquivos `.yaml` no projeto e os aplica ao seu cluster Kubernetes.
+
+5. **Verifique os Pods**
+   - Aguarde até todos os pods estarem em execução, verificando seu status com:
+     ```bash
+     kubectl get pods
+     ```
+   - Quando todos os pods estiverem operacionais, seu sistema estará pronto para uso.
 
 ## Arquitetura
 
@@ -58,18 +100,8 @@ O FiapTechChallenge segue um modelo de arquitetura limpa com a seguinte estrutur
 - `PVC (Persistent Volume Claim)`: Este é um recurso de armazenamento persistente que está associado ao banco de dados PostgreSQL, garantindo que os dados persistam além do ciclo de vida dos contêineres e Pods.
 - `Node` : Um Node é uma máquina física ou virtual que faz parte do cluster Kubernetes e hospeda os Pods.
 
-## Desenvolvimento
-
+## CI/CD
 Este projeto utiliza o GitActions para seu processo de CI/CD, garantindo um ciclo de vida de desenvolvimento ágil e estável.
-
-## Docker Compose
-
-Nossos serviços são definidos no `docker-compose.yml`. Aqui está uma breve visão geral:
-
-- `api`: Nosso serviço de API construído a partir da imagem `lkhouri/api:v1`.
-- `rabbitmq`: Serviço de corretagem de mensagens com o plugin de gerenciamento.
-- `pgdb`: Serviço de banco de dados PostgreSQL.
-- `pgadmin`: Administração de PostgreSQL baseada na web.
 
 ## Contribuindo
 
