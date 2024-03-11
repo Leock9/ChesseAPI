@@ -60,19 +60,24 @@ Siga estes passos para implantar o FiapTechChallenge usando Kubernetes:
    - Instale o Kind seguindo as instruções no [Guia Rápido do Kind](https://kind.sigs.k8s.io/docs/user/quick-start/#installing-with-a-package-manager).
 
 3. **Prepare o Ambiente**
+       
    - Abra o PowerShell e navegue até o diretório raiz da aplicação:
      ```powershell
      cd caminho\para\fiap-tech-challenge\FiapTechChallenge
      ```
+      - Crie o cluster K8s usando Kind
+     ```powershell
+      kind create cluster --name burguer --config kind-config.yaml
+     ```
 
-4. **Aplique os Manifestos do Kubernetes**
+5. **Aplique os Manifestos do Kubernetes**
    - Execute o comando abaixo para aplicar todos os manifestos do Kubernetes localizados no diretório do projeto:
      ```powershell
      Get-ChildItem -Path .\ -Recurse -Filter *.yaml | ForEach-Object { kubectl apply -f $_.FullName }
      ```
    - Este comando busca todos os arquivos `.yaml` no projeto e os aplica ao seu cluster Kubernetes.
 
-5. **Verifique os Pods**
+6. **Verifique os Pods**
    - Aguarde até todos os pods estarem em execução, verificando seu status com:
      ```bash
      kubectl get pods
