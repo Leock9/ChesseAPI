@@ -105,6 +105,9 @@ O FiapTechChallenge segue um modelo de arquitetura limpa com a seguinte estrutur
 - `PVC (Persistent Volume Claim)`: Este é um recurso de armazenamento persistente que está associado ao banco de dados PostgreSQL, garantindo que os dados persistam além do ciclo de vida dos contêineres e Pods.
 - `Node` : Um Node é uma máquina física ou virtual que faz parte do cluster Kubernetes e hospeda os Pods.
 
+## Collection 
+[CheeseApiCollection.txt](https://github.com/Leock9/fiap-tech-challenge/files/14553028/CheeseApiCollection.txt)
+
 ## CI/CD
 Este projeto utiliza o GitActions para seu processo de CI/CD, garantindo um ciclo de vida de desenvolvimento ágil e estável.
 
