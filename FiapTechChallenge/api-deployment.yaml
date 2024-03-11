@@ -20,6 +20,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: lkhouri/api:v1
+        image: lkhouri/cheeseapi:v1
+        imagePullPolicy: Always
         ports:
-        - containerPort: 80
+        - containerPort: 8080

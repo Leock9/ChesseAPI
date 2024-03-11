@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgres-service
+  name: pgdb
   namespace: burguerspace
 spec:
   selector:
@@ -10,4 +10,5 @@ spec:
   - name: postgres
     port: 5432
     targetPort: 5432
-  type: ClusterIP
+    nodePort: 30001
+  type: NodePort
