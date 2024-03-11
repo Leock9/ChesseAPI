@@ -1,6 +1,6 @@
 ﻿namespace Domain.Services;
 
-public interface IPaymentService
+public interface IPaymentGateway
 {
     public Payment PayAsync(Payment payment);
 

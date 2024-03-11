@@ -6,14 +6,14 @@ using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.PaymentGateway;
 
-public class PaymentService : IPaymentService
+public class PaymentGateway : IPaymentGateway
 {
-    private readonly ILogger<PaymentService> _logger;
+    private readonly ILogger<PaymentGateway> _logger;
     private readonly IPaymentWebHook _paymentWebHook;
 
-    public PaymentService
+    public PaymentGateway
     (
-        ILogger<PaymentService> logger,
+        ILogger<PaymentGateway> logger,
         IPaymentWebHook paymentWebHook
     )
     {

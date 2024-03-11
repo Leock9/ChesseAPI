@@ -2,7 +2,7 @@
 
 namespace Domain.Services;
 
-public interface IOrderService
+public interface IOrderUseCase
 {
     public Guid CreateOrder(BaseOrderRequest orderRequest);
     public Task<IEnumerable<Order>> GetAll();

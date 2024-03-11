@@ -5,11 +5,11 @@ using System.Text.Json;
 
 namespace Infrastructure.PostgreDb.Repository;
 
-public class OrderRepository : IOrderRepository
+public class OrderGateway : IOrderGateway
 {
     private readonly Context _context;
 
-    public OrderRepository(Context context)
+    public OrderGateway(Context context)
     {
         _context = context;
         EnsureTableExistsAsync().Wait();

@@ -1,6 +1,6 @@
 ﻿namespace Domain.Ports;
 
-public interface IOrderRepository
+public interface IOrderGateway
 {
     public void Create(Order order);
     public Task<IEnumerable<Order>> GetAll();

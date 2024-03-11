@@ -49,17 +49,17 @@ builder.Services.AddSingleton<Context>
 builder.Services.AddSingleton<IRabbitMqSettings>(_ => builder.Configuration.GetSection("RabbitMqSettings").Get<RabbitMqSettings>());
 
 // ** SERVICE **
-builder.Services.AddScoped<IClientService, ClientService>();
-builder.Services.AddScoped<IItemMenuService, ItemMenuService>();
-builder.Services.AddScoped<IOrderService, OrderService>();
-builder.Services.AddScoped<IPaymentService, PaymentService>();
+builder.Services.AddScoped<IClientUseCase, ClientUseCase>();
+builder.Services.AddScoped<IItemMenuUseCase, ItemMenuUseCase>();
+builder.Services.AddScoped<IOrderUseCase, OrderUseCase>();
+builder.Services.AddScoped<IPaymentGateway, PaymentGateway>();
 builder.Services.AddScoped<IOrderQueue, OrderQueue>();
 builder.Services.AddScoped<IPaymentWebHook, PaymentWebHook>();
 
 // ** REPOSITORY **
-builder.Services.AddScoped<IClientRepository, ClientRepository>();
-builder.Services.AddScoped<IItemMenuRepository, ItemMenuRepository>();
-builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IClientGateway, ClientGateway>();
+builder.Services.AddScoped<IItemMenuGateway, ItemMenuGateway>();
+builder.Services.AddScoped<IOrderGateway, OrderGateway>();
 
 var app = builder.Build();
 

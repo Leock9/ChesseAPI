@@ -4,15 +4,15 @@ using Microsoft.Extensions.Logging;
 
 namespace Domain.Services;
 
-public class ClientService: IClientService
+public class ClientUseCase: IClientUseCase
 {
-    private readonly ILogger<ClientService> _logger;
-    private readonly IClientRepository _clientRepositoy;
+    private readonly ILogger<ClientUseCase> _logger;
+    private readonly IClientGateway _clientRepositoy;
 
-    public ClientService
+    public ClientUseCase
     (
-        ILogger<ClientService> logger,
-        IClientRepository clientRepositoy
+        ILogger<ClientUseCase> logger,
+        IClientGateway clientRepositoy
     )
     {
         _logger = logger;

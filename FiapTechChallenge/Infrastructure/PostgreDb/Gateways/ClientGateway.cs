@@ -4,11 +4,11 @@ using Npgsql;
 
 namespace Infrastructure.PostgreDb.Repository;
 
-public class ClientRepository : IClientRepository
+public class ClientGateway : IClientGateway
 {
     private readonly Context _context;
 
-    public ClientRepository(Context context)
+    public ClientGateway(Context context)
     {
         _context = context;
         EnsureTableExistsAsync();

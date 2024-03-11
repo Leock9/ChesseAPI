@@ -4,18 +4,18 @@ using Microsoft.Extensions.Logging;
 
 namespace Domain.Services;
 
-public class OrderService : IOrderService
+public class OrderUseCase : IOrderUseCase
 {
-    private readonly ILogger<OrderService> _logger;
-    private readonly IOrderRepository _orderRepository;
-    private readonly IPaymentService _paymentService;
+    private readonly ILogger<OrderUseCase> _logger;
+    private readonly IOrderGateway _orderRepository;
+    private readonly IPaymentGateway _paymentService;
     private readonly IOrderQueue _queue;
 
-    public OrderService
+    public OrderUseCase
     (
-        ILogger<OrderService> logger, 
-        IOrderRepository orderRepository, 
-        IPaymentService paymentService,
+        ILogger<OrderUseCase> logger, 
+        IOrderGateway orderRepository, 
+        IPaymentGateway paymentService,
         IOrderQueue queue
     )
     {

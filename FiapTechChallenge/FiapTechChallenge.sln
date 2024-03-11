@@ -11,9 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{3EC0E778-E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Adpter", "Adpter", "{E38F247D-9C06-4A3A-83E5-E977784AEC6B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Driver", "Driver", "{2D1D9A5B-8245-48FC-87C4-81FDC520DEBA}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Drivers", "Drivers", "{2D1D9A5B-8245-48FC-87C4-81FDC520DEBA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Driven", "Driven", "{28CDA60B-5287-4692-A891-C01D4B635AD3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateways", "Gateways", "{28CDA60B-5287-4692-A891-C01D4B635AD3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "Api\Api.csproj", "{C5416B3C-A7CB-466B-9D85-27F74A16D2C5}"
 EndProject
@@ -24,6 +24,38 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{033D7A6F-2FA1-41C4-B8AF-2B782F6D3B94}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{BCD7B5CC-5546-4E70-9F06-0F0D3137E158}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{9236F376-89AD-4384-AA27-AD1462ABDD92}"
+	ProjectSection(SolutionItems) = preProject
+		kind-config.yaml = kind-config.yaml
+		namespace.yaml = namespace.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deployments", "Deployments", "{B3BB25B0-F30C-4B1F-93CC-130ED9C2A672}"
+	ProjectSection(SolutionItems) = preProject
+		api-deployment.yaml = api-deployment.yaml
+		pgadmin-deployment.yaml = pgadmin-deployment.yaml
+		postgres-deployment.yaml = postgres-deployment.yaml
+		rabbitmq-deployment.yaml = rabbitmq-deployment.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{7D87B51A-9693-4BFA-8BFB-9D36F35E3962}"
+	ProjectSection(SolutionItems) = preProject
+		api-service.yaml = api-service.yaml
+		pgadmin-service.yaml = pgadmin-service.yaml
+		postgres-service.yaml = postgres-service.yaml
+		rabbitmq-service.yaml = rabbitmq-service.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HPA", "HPA", "{208ADC49-0B96-4E22-8AEB-C3702B3F8B59}"
+	ProjectSection(SolutionItems) = preProject
+		api-hpa.yaml = api-hpa.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pvc", "Pvc", "{42364318-FCB4-44DF-AD1C-94E8D4642C29}"
+	ProjectSection(SolutionItems) = preProject
+		postgres-pvc.yaml = postgres-pvc.yaml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,6 +96,10 @@ Global
 		{00630BE6-0075-46D0-803B-96B012420318} = {3EC0E778-ECAF-48E6-B760-862FDC1EB857}
 		{546CC664-CF8B-40D1-B616-62AEE4A2B780} = {C460914A-94FB-46B8-BAC9-70B09F88D121}
 		{033D7A6F-2FA1-41C4-B8AF-2B782F6D3B94} = {28CDA60B-5287-4692-A891-C01D4B635AD3}
+		{B3BB25B0-F30C-4B1F-93CC-130ED9C2A672} = {9236F376-89AD-4384-AA27-AD1462ABDD92}
+		{7D87B51A-9693-4BFA-8BFB-9D36F35E3962} = {9236F376-89AD-4384-AA27-AD1462ABDD92}
+		{208ADC49-0B96-4E22-8AEB-C3702B3F8B59} = {9236F376-89AD-4384-AA27-AD1462ABDD92}
+		{42364318-FCB4-44DF-AD1C-94E8D4642C29} = {9236F376-89AD-4384-AA27-AD1462ABDD92}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {388977AE-6CE1-42A3-95B2-B0F5399C7DE9}

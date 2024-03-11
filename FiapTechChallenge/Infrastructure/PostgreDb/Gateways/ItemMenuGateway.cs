@@ -6,11 +6,11 @@ using System.Text.Json;
 
 namespace Infrastructure.PostgreDb.Repository;
 
-public class ItemMenuRepository : IItemMenuRepository
+public class ItemMenuGateway : IItemMenuGateway
 {
     private readonly Context _context;
 
-    public ItemMenuRepository(Context context)
+    public ItemMenuGateway(Context context)
     {
         _context = context;
         EnsureTableExistsAsync().Wait();

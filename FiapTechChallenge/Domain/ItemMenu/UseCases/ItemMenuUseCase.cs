@@ -4,15 +4,15 @@ using Microsoft.Extensions.Logging;
 
 namespace Domain.Services;
 
-public class ItemMenuService : IItemMenuService
+public class ItemMenuUseCase : IItemMenuUseCase
 {
-    private readonly ILogger<ItemMenuService> _logger;
-    private readonly IItemMenuRepository _itemMenuRepository;
+    private readonly ILogger<ItemMenuUseCase> _logger;
+    private readonly IItemMenuGateway _itemMenuRepository;
 
-    public ItemMenuService
+    public ItemMenuUseCase
     (
-        IItemMenuRepository itemMenuRepository, 
-        ILogger<ItemMenuService> logger
+        IItemMenuGateway itemMenuRepository, 
+        ILogger<ItemMenuUseCase> logger
     )
     {
         _itemMenuRepository = itemMenuRepository;

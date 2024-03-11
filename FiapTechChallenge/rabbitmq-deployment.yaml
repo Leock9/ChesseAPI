@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq-deployment
+  namespace: burguerspace
+spec:
+  selector:
+    matchLabels:
+      app: rabbitmq
+  template:
+    metadata:
+      labels:
+        app: rabbitmq
+    spec:
+      containers:
+      - name: rabbitmq
+        image: rabbitmq:3-management-alpine
+        ports:
+        - containerPort: 5672
+        - containerPort: 15672
+        env:
+        - name: RABBITMQ_DEFAULT_USER
+          value: "guest"
+        - name: RABBITMQ_DEFAULT_PASS
+          value: "guest"
+        volumeMounts:
+        - name: data
+          mountPath: /var/lib/rabbitmq/
+        - name: log
+          mountPath: /var/log/rabbitmq/
+      volumes:
+      - name: data
+        hostPath:
+          path: /mnt/data/rabbitmq/data
+      - name: log
+        hostPath:
+          path: /mnt/data/rabbitmq/log

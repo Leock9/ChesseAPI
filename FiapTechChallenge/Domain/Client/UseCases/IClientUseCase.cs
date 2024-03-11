@@ -2,7 +2,7 @@
 
 namespace Domain.Services;
 
-public interface IClientService
+public interface IClientUseCase
 {
     void Create(CreateClientRequest createClientRequest);
 

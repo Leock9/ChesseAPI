@@ -9,23 +9,23 @@ using Moq;
 
 namespace Domain.Tests.Service;
 
-public class OrderServiceTests
+public class OrderUseCaseTests
 {
-    private readonly ILogger<OrderService> _logger;
-    private readonly IOrderRepository _orderRepository;
-    private readonly IPaymentService _paymentService;
+    private readonly ILogger<OrderUseCase> _logger;
+    private readonly IOrderGateway _orderRepository;
+    private readonly IPaymentGateway _paymentService;
     private readonly IOrderQueue _queue;
 
-    private readonly OrderService _orderService;
+    private readonly OrderUseCase _orderService;
 
-    public OrderServiceTests()
+    public OrderUseCaseTests()
     {
-        _logger = new Mock<ILogger<OrderService>>().Object;
-        _orderRepository = new Mock<IOrderRepository>().Object;
-        _paymentService = new Mock<IPaymentService>().Object;
+        _logger = new Mock<ILogger<OrderUseCase>>().Object;
+        _orderRepository = new Mock<IOrderGateway>().Object;
+        _paymentService = new Mock<IPaymentGateway>().Object;
         _queue = new Mock<IOrderQueue>().Object;
 
-        _orderService = new OrderService
+        _orderService = new OrderUseCase
             (
               _logger,
               _orderRepository,

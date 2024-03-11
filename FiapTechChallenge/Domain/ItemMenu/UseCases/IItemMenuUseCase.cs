@@ -3,7 +3,7 @@ using Domain.ValueObjects;
 
 namespace Domain.Services;
 
-public interface IItemMenuService
+public interface IItemMenuUseCase
 {
     public void Create(BaseItemMenuRequest itemMenuRequest);
     public Task Update(UpdateItemMenuRequest itemMenuRequest);

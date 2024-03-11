@@ -2,7 +2,7 @@
 
 namespace Domain.Ports;
 
-public interface IItemMenuRepository
+public interface IItemMenuGateway
 {
     public void Create(ItemMenu itemMenu);
     public void Update(ItemMenu itemMenu);

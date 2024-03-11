@@ -1,6 +1,6 @@
 ﻿namespace Domain.Ports;
 
-public interface IClientRepository
+public interface IClientGateway
 {
     void Create(Client client);
 

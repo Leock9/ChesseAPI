@@ -7,7 +7,7 @@ namespace Api.Endpoints.Order.GetList;
 public sealed class Endpoint : Endpoint<Request, Response, Mapper>
 {
     public ILogger<Endpoint> Log { get; set; } = null!;
-    public IOrderService? OrderService { get; set; }
+    public IOrderUseCase? OrderService { get; set; }
 
     public override void Configure()
     {
