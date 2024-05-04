@@ -33,5 +33,5 @@ RUN dotnet publish "Api.csproj" -c Release -o /app/publish
 # Stage final, com a imagem de runtime
 FROM base AS final
 WORKDIR /app
-COPY --from=publish /app/publish.
+COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Api.dll"]
