@@ -1,6 +1,7 @@
 name: .NET 8 Build and Test
 
 on:
+ on:
   push:
     branches: [ main ]
   pull_request:
@@ -13,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Setup .NET
+    - name: Setup.NET
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '8.0'
@@ -44,8 +45,8 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -f FiapTechChallenge/Api/Dockerfile -t ${{ secrets.DOCKER_USERNAME }}/cheeseapi:v1 .
+          docker build -f FiapTechChallenge/Api/Dockerfile -t ${{ secrets.DOCKER_USERNAME }}/cheeseapi:v1.
           docker push ${{ secrets.DOCKER_USERNAME }}/cheeseapi:v1
         env:
           IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/cheeseapi:v1
-          working-directory: Api/
+        working-directory: FiapTechChallenge/Api
