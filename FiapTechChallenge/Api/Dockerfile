@@ -7,13 +7,24 @@ EXPOSE 8081
 # SDK image for build
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ..
-RUN dotnet restore
-RUN dotnet build -c Release -o /app/build
+# Copia os arquivos de projeto .csproj para o container e restaura as dependências
+COPY ["Api/Api.csproj", "Api/"]
+COPY ["Domain/Domain.csproj", "Domain/"]
+COPY ["Infrastructure/Infrastructure.csproj", "Infrastructure/"]
+RUN dotnet restore "Api/Api.csproj"
+
+# Após a restauração, copie o código fonte para o container
+COPY ["Api/", "Api/"]
+COPY ["Domain/", "Domain/"]
+COPY ["Infrastructure/", "Infrastructure/"]
+
+# Defina o diretório de trabalho para a API e compile o projeto
+WORKDIR "/src/Api"
+RUN dotnet build "Api.csproj" -c Release -o /app/build
 
 # Publica o projeto
 FROM build AS publish
-RUN dotnet publish -c Release -o /app/publish
+RUN dotnet publish "Api.csproj" -c Release -o /app/publish
 
 # Stage final, com a imagem de runtime
 FROM base AS final
