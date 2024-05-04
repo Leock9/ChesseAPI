@@ -8,8 +8,8 @@ FROM mcr.microsoft.com/dotnet/sdk:${DOTNET_VERSION} AS build
 WORKDIR /src
 
 # Copia os arquivos de projeto
-COPY *.csproj./
-COPY **/*.csproj./
+COPY *.csproj /src/
+COPY **/*.csproj /src/
 
 # Restaura as dependências
 RUN dotnet restore ${PROJECT_FILE}
