@@ -47,8 +47,8 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -f ./Api/Dockerfile -t ${{ secrets.DOCKER_USERNAME }}/cheeseapi:v1 .
+          docker buildx build -f FiapTechChallengeApi/Dockerfile -t ${{ secrets.DOCKER_USERNAME }}/cheeseapi:v1 .
           docker push ${{ secrets.DOCKER_USERNAME }}/cheeseapi:v1
         env:
           IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/cheeseapi:v1
-        working-directory: ./Api
+          working-directory: FiapTechChallenge/Api
