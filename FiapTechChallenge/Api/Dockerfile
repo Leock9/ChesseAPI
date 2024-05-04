@@ -15,7 +15,7 @@ COPY **/*.csproj /src/
 RUN dotnet restore ${PROJECT_FILE}
 
 # Copia o código fonte
-COPY..
+COPY . /src/
 
 # Compila o projeto
 RUN dotnet build ${PROJECT_FILE} -c Release -o /app/build
