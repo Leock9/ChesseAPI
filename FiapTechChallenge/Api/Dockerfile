@@ -1,33 +1,33 @@
-# Base image for runtime
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+# Define variáveis
+ARG DOTNET_VERSION=8.0
+ARG PROJECT_NAME=Api
+ARG PROJECT_FILE=${PROJECT_NAME}.csproj
+
+# Estágio de build
+FROM mcr.microsoft.com/dotnet/sdk:${DOTNET_VERSION} AS build
+WORKDIR /src
+
+# Copia os arquivos de projeto
+COPY *.csproj./
+COPY **/*.csproj./
+
+# Restaura as dependências
+RUN dotnet restore ${PROJECT_FILE}
+
+# Copia o código fonte
+COPY..
+
+# Compila o projeto
+RUN dotnet build ${PROJECT_FILE} -c Release -o /app/build
+
+# Estágio de publicação
+FROM build AS publish
+RUN dotnet publish ${PROJECT_FILE} -c Release -o /app/publish
+
+# Estágio final, com a imagem de runtime
+FROM mcr.microsoft.com/dotnet/aspnet:${DOTNET_VERSION} AS final
 WORKDIR /app
+COPY --from=publish /app/publish.
 EXPOSE 8080
 EXPOSE 8081
-
-# SDK image for build
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /src
-# Copia os arquivos de projeto .csproj para o container e restaura as dependências
-COPY ["Api/Api.csproj", "Api/"]
-COPY ["Domain/Domain.csproj", "Domain/"]
-COPY ["Infrastructure/Infrastructure.csproj", "Infrastructure/"]
-RUN dotnet restore "Api/Api.csproj"
-
-# Após a restauração, copie o código fonte para o container
-COPY ["Api/", "Api/"]
-COPY ["Domain/", "Domain/"]
-COPY ["Infrastructure/", "Infrastructure/"]
-
-# Defina o diretório de trabalho para a API e compile o projeto
-WORKDIR "/src/Api"
-RUN dotnet build "Api.csproj" -c Release -o /app/build
-
-# Publica o projeto
-FROM build AS publish
-RUN dotnet publish "Api.csproj" -c Release -o /app/publish
-
-# Stage final, com a imagem de runtime
-FROM base AS final
-WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Api.dll"]
+ENTRYPOINT ["dotnet", "${PROJECT_NAME}.dll"]
