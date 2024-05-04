@@ -48,3 +48,4 @@ jobs:
           docker push ${{ secrets.DOCKER_USERNAME }}/cheeseapi:v1
         env:
           IMAGE_NAME: ${{ secrets.DOCKER_USERNAME }}/cheeseapi:v1
+          working-directory: FiapTechChallenge/Api
