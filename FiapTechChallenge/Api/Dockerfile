@@ -27,7 +27,7 @@ RUN dotnet publish ${PROJECT_FILE} -c Release -o /app/publish
 # Estágio final, com a imagem de runtime
 FROM mcr.microsoft.com/dotnet/aspnet:${DOTNET_VERSION} AS final
 WORKDIR /app
-COPY --from=publish /app/publish.
+COPY --from=publish /app/publish .
 EXPOSE 8080
 EXPOSE 8081
 ENTRYPOINT ["dotnet", "${PROJECT_NAME}.dll"]
