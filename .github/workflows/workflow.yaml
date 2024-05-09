@@ -58,13 +58,12 @@ jobs:
 
     steps:
       - name: Configure AWS credentials
-        uses: Fooji/create-aws-profile-action@v1
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          profile: academy
-          region: us-east-1
-          key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          secret: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          sessionToken: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: us-east-1
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
 
       - name: Update kubeconfig with EKS cluster credentials
         run: aws eks update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }} --region us-east-1
