@@ -77,6 +77,7 @@ jobs:
 
       - name: Deploy to EKS
         run: | 
+          kubectl apply -f k8s/namespace.yaml
           kubectl apply -f k8s/api-deployment.yaml
           kubectl apply -f k8s/api-hpa.yaml
           kubectl apply -f k8s/api-service.yaml
