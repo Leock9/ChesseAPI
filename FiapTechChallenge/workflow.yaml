@@ -59,8 +59,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          path: ChesseAPI
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -75,10 +73,10 @@ jobs:
 
       - name: Deploy to EKS
         run: | 
-          kubectl apply -f k8s/api-deployment.yaml
-          kubectl apply -f k8s/api-hpa.yaml
-          kubectl apply -f k8s/api-service.yaml
-          kubectl apply -f k8s/postgres-pvc.yaml
-          kubectl apply -f k8s/postgres-service.yaml
-          kubectl apply -f k8s/rabbitmq-deployment.yaml
-          kubectl apply -f k8s/rabbitmq-service.yaml
+          kubectl apply -f api-deployment.yaml
+          kubectl apply -f api-hpa.yaml
+          kubectl apply -f api-service.yaml
+          kubectl apply -f postgres-pvc.yaml
+          kubectl apply -f postgres-service.yaml
+          kubectl apply -f rabbitmq-deployment.yaml
+          kubectl apply -f rabbitmq-service.yaml
