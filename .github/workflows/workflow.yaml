@@ -70,10 +70,10 @@ jobs:
 
       - name: Deploy to EKS
         run: | 
-          kubectl apply -f k8s/api-deployment.yaml
-          kubectl apply -f k8s/api-hpa.yaml
-          kubectl apply -f k8s/api-service.yaml
-          kubectl apply -f k8s/postgres-pvc.yaml
-          kubectl apply -f k8s/postgres-service.yaml
-          kubectl apply -f k8s/rabbitmq-deployment.yaml
-          kubectl apply -f k8s/rabbitmq-service.yaml
+          kubectl apply -f ChesseAPI/k8s/api-deployment.yaml
+          kubectl apply -f ChesseAPI/k8s/api-hpa.yaml
+          kubectl apply -f ChesseAPI/k8s/api-service.yaml
+          kubectl apply -f ChesseAPI/k8s/postgres-pvc.yaml
+          kubectl apply -f ChesseAPI/k8s/postgres-service.yaml
+          kubectl apply -f ChesseAPI/k8s/rabbitmq-deployment.yaml
+          kubectl apply -f ChesseAPI/k8s/rabbitmq-service.yaml
