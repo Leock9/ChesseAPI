@@ -11,6 +11,3 @@
 /FiapTechChallenge/Api/Properties
 /FiapTechChallenge/FiapTechChalleng/Properties
 /FiapTechChallenge/data/db/diagnostic.data
-# Ignorar diretório do MongoDB
-data\db
-data
