@@ -8,10 +8,12 @@ on:
 
 jobs:
   build-and-test:
-    runs-on: windows-latest
-
+    runs-on: ubuntu-latest
+    env:
+      EKS_CLUSTER_NAME: ${{ secrets.EKS_CLUSTER_NAME}}
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
     - name: Setup.NET
       uses: actions/setup-dotnet@v1
@@ -49,3 +51,38 @@ jobs:
      
       - name: Push the image to Docker Hub
         run: docker push ${{ secrets.DOCKER_USERNAME }}/cheeseapi:v1
+
+  deploy-to-eks:
+    runs-on: ubuntu-latest
+    needs: build-and-push-docker-image
+    if: needs.build-and-push-docker-image.result == 'success'
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: us-east-1
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+
+      - name: Update kubeconfig with EKS cluster credentials
+        run: aws eks update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }} --region us-east-1
+
+      - name: Change permissions
+        run: chmod +x k8s/*.yaml
+
+      - name: Deploy to EKS
+        run: | 
+          kubectl apply -f k8s/namespace.yaml
+          kubectl apply -f k8s/api-deployment.yaml
+          kubectl apply -f k8s/api-hpa.yaml
+          kubectl apply -f k8s/api-service.yaml
+          kubectl apply -f k8s/postgres-pvc.yaml
+          kubectl apply -f k8s/postgres-service.yaml
+          kubectl apply -f k8s/rabbitmq-deployment.yaml
+          kubectl apply -f k8s/rabbitmq-service.yaml
