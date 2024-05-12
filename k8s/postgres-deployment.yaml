@@ -23,9 +23,9 @@ spec:
         - name: POSTGRES_DB
           value: "db-burger"
         - name: POSTGRES_USER
-          value: "passUser"
+          value: "pass"
         - name: POSTGRES_PASSWORD
-          value: "pass@123"
+          value: "pass45455627"
         volumeMounts:
         - mountPath: /var/lib/postgresql/data
           name: postgres-data
