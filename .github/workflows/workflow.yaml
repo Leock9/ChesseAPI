@@ -83,3 +83,8 @@ jobs:
           kubectl apply -f k8s/api-service.yaml
           kubectl apply -f k8s/rabbitmq-deployment.yaml
           kubectl apply -f k8s/rabbitmq-service.yaml
+          kubectl apply -f k8s/pgadmin-deployment.yaml
+          kubectl apply -f k8s/pgadmin-service.yaml
+          kubectl apply -f k8s/postgres-deployment.yaml
+          kubectl apply -f k8s/postgres-pvc.yaml
+          kubectl apply -f k8s/postgres-service.yaml
