@@ -17,6 +17,7 @@ builder.Logging.AddSimpleConsole(options =>
 });
 
 builder.Services.AddFastEndpoints();
+builder.Services.AddHealthChecks();
 
 builder.Services.SwaggerDocument(o =>
 {
