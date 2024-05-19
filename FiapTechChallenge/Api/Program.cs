@@ -63,6 +63,7 @@ builder.Services.AddScoped<IItemMenuGateway, ItemMenuGateway>();
 builder.Services.AddScoped<IOrderGateway, OrderGateway>();
 
 var app = builder.Build();
+app.MapHealthChecks("/health");
 
 app.UseFastEndpoints(c =>
 {
